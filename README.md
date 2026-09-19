@@ -1,3 +1,6 @@
+# THIS IS A VIBE CODED APP
+I made this just to test the abilities of Claude Code and Claude Design as well as to learn Kotlin and Jetpack. This app is purely front-end making no need for servers and runs locally on your Android device
+
 # RecipeHub
 
 Save recipes from Instagram Reels / TikTok by sharing them to the RecipeHub Android app.

@@ -46,6 +46,10 @@ class RecipeListViewModel @Inject constructor(
         }
     }
 
+    fun clearFilter() {
+        _selectedCollectionIds.value = emptySet()
+    }
+
     fun onSearchQueryChange(query: String) {
         _searchQuery.value = query
     }

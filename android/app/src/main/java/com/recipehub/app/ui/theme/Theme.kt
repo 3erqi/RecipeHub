@@ -7,48 +7,55 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-// Vivid grass-green accent (matches the app icon) as the primary color. Light mode
-// keeps green-tinted neutrals; dark mode uses a neutral dark grey background/surface
-// instead, so the green accent pops against a plain backdrop rather than blending
-// into an all-green dark screen.
+// From the Claude Design handoff (design-handoff/README.md). Light mode is the handoff's
+// cream/forest/grass palette as-is. Dark mode keeps the neutral dark-grey background chosen
+// earlier (not the handoff's forest-green dark variant) but shares the same grass accent, so
+// the brand color is consistent across both.
+
+private val Forest = Color(0xFF0A2318)
+private val Cream = Color(0xFFF6F2E6)
+private val Grass = Color(0xFF5CB944)
+private val GrassDeep = Color(0xFF3F6B29)
+private val ChipInk = Color(0xFF2C4F1C)
+private val Danger = Color(0xFFB5471B)
 
 private val LightColors = lightColorScheme(
-    primary = Color(0xFF3F6B29),
+    primary = GrassDeep,
     onPrimary = Color(0xFFFFFFFF),
     primaryContainer = Color(0xFFC8E6B0),
     onPrimaryContainer = Color(0xFF122B06),
-    secondary = Color(0xFFB5471B),
+    secondary = Danger,
     onSecondary = Color(0xFFFFFFFF),
     secondaryContainer = Color(0xFFFFDBC7),
     onSecondaryContainer = Color(0xFF3A1400),
-    tertiary = Color(0xFF8C6A1F),
-    onTertiary = Color(0xFFFFFFFF),
-    tertiaryContainer = Color(0xFFFFE08C),
-    onTertiaryContainer = Color(0xFF2B1E00),
+    tertiary = Grass,
+    onTertiary = Forest,
+    tertiaryContainer = Color(0xFFE2F2DD),
+    onTertiaryContainer = ChipInk,
     error = Color(0xFFBA1A1A),
     onError = Color(0xFFFFFFFF),
-    background = Color(0xFFF5FAF0),
-    onBackground = Color(0xFF14210F),
-    surface = Color(0xFFF5FAF0),
-    onSurface = Color(0xFF14210F),
-    surfaceVariant = Color(0xFFDCEAD2),
-    onSurfaceVariant = Color(0xFF3E4F3A),
-    outline = Color(0xFF7A8F74),
+    background = Cream,
+    onBackground = Forest,
+    surface = Cream,
+    onSurface = Forest,
+    surfaceVariant = Color(0xFFFFFFFF),
+    onSurfaceVariant = Forest.copy(alpha = 0.6f),
+    outline = Forest.copy(alpha = 0.1f),
 )
 
 private val DarkColors = darkColorScheme(
-    primary = Color(0xFF8BC34A),
-    onPrimary = Color(0xFF123402),
+    primary = Grass,
+    onPrimary = Forest,
     primaryContainer = Color(0xFF2E5C1B),
     onPrimaryContainer = Color(0xFFC8E6B0),
     secondary = Color(0xFFFFB59A),
     onSecondary = Color(0xFF5F1900),
     secondaryContainer = Color(0xFF852F04),
     onSecondaryContainer = Color(0xFFFFDBC7),
-    tertiary = Color(0xFFECC26D),
-    onTertiary = Color(0xFF473300),
-    tertiaryContainer = Color(0xFF664B00),
-    onTertiaryContainer = Color(0xFFFFE08C),
+    tertiary = Grass,
+    onTertiary = Forest,
+    tertiaryContainer = Color(0xFF2E5C1B),
+    onTertiaryContainer = Color(0xFFC8E6B0),
     error = Color(0xFFFFB4AB),
     onError = Color(0xFF690005),
     background = Color(0xFF17181A),
@@ -57,11 +64,11 @@ private val DarkColors = darkColorScheme(
     onSurface = Color(0xFFECEDEE),
     surfaceVariant = Color(0xFF2B2D30),
     onSurfaceVariant = Color(0xFFC4C7CA),
-    outline = Color(0xFF5C7A5A),
+    outline = GrassDeep,
 )
 
 @Composable
 fun RecipeHubTheme(content: @Composable () -> Unit) {
     val colors = if (isSystemInDarkTheme()) DarkColors else LightColors
-    MaterialTheme(colorScheme = colors, content = content)
+    MaterialTheme(colorScheme = colors, typography = RecipeHubTypography, content = content)
 }

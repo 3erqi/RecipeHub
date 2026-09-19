@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             RecipeHubTheme {
-                RecipeHubNavHost(sharedUrlState = sharedUrlState)
+                RecipeHubNavHost(sharedUrlState = sharedUrlState, onFinish = { finish() })
             }
         }
     }
@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun RecipeHubNavHost(sharedUrlState: MutableState<String?>) {
+private fun RecipeHubNavHost(sharedUrlState: MutableState<String?>, onFinish: () -> Unit) {
     val navController = rememberNavController()
     val sharedUrl = sharedUrlState.value
 
@@ -72,9 +72,7 @@ private fun RecipeHubNavHost(sharedUrlState: MutableState<String?>) {
             val url = Uri.decode(backStackEntry.arguments?.getString("url").orEmpty())
             SavingScreen(
                 url = url,
-                onSaved = { localId ->
-                    navController.navigate("detail/$localId") { popUpTo("list") }
-                },
+                onSaved = onFinish,
                 onCancel = { navController.popBackStack("list", inclusive = false) },
             )
         }
@@ -92,7 +90,10 @@ private fun RecipeHubNavHost(sharedUrlState: MutableState<String?>) {
             route = "edit/{localId}",
             arguments = listOf(navArgument("localId") { type = NavType.LongType }),
         ) {
-            RecipeEditScreen(onSaved = { navController.popBackStack("list", inclusive = false) })
+            RecipeEditScreen(
+                onBack = { navController.popBackStack() },
+                onSaved = { navController.popBackStack("list", inclusive = false) },
+            )
         }
     }
 }
